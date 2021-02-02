@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
 import { FiArrowLeft, FiEdit2, FiCheck, FiTrash, FiX } from 'react-icons/fi';
 
-const appurl = process.env.NEXTAUTH_URL;
+const appurl = process.env.NEXT_PUBLIC_URL;
 
 const RecordTable = ({ recordTable }) => {
     const [session] = useSession();

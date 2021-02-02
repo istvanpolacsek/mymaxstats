@@ -14,6 +14,8 @@ import { Container } from 'react-bootstrap';
 import { FiArrowLeft, FiCheck, FiPlus, FiX } from 'react-icons/fi';
 import { primaries } from '../utils/primaries.json';
 
+const appurl = process.env.NEXT_PUBLIC_URL;
+
 const NewTable = () => {
     const [session] = useSession();
     const date = new Date();
@@ -59,7 +61,7 @@ const NewTable = () => {
 
     const createRecordTable = async (form) => {
         try {
-            const res = await fetch('/api/recordtables/', {
+            const res = await fetch(`${appurl}/api/recordtables/`, {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",

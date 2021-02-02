@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/client';
 import { FiEdit2, FiEye, FiPlus } from 'react-icons/fi';
 import { months } from '../utils/months.json'
 
-const appurl = process.env.NEXTAUTH_URL;
+const appurl = process.env.NEXT_PUBLIC_URL;
 
 const Index = ({ recordTables }) => {
   const [session] = useSession();

@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Container } from 'react-bootstrap';
 import { FiArrowLeft, FiCheck, FiPlus, FiX } from 'react-icons/fi';
 
-const appurl = process.env.NEXTAUTH_URL;
+const appurl = process.env.NEXT_PUBLIC_URL;
 
 const EditTable = ({ recordTable }) => {
 
