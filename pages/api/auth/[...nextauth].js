@@ -21,6 +21,7 @@ const options = {
           },
 
         session: async (session, user) => {
+            session.user.id = user.id;
             return Promise.resolve(session)
             },
 

@@ -2,31 +2,30 @@ import { signin, signout, useSession } from 'next-auth/client';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import { FiHome, FiPlus, FiLogIn, FiLogOut } from 'react-icons/fi';
 
 const Navigation = () => {
-  const [session] = useSession()
+  const [session] = useSession();
 
   return (
-      <Navbar bg="dark" variant="dark">
+    <Navbar fixed="top" bg="secondary" variant="dark">
+      <Container>
+        <Navbar.Brand href="/">My Stats</Navbar.Brand>
           {!session && (
-            <Container>
-              <Navbar.Brand>My Stats</Navbar.Brand>
-              <a 
+            <a 
               href={`/api/auth/signin`}
               onClick={(e) => {
                 e.preventDefault()
                 signin()
               }}                
-              >
-                <Button>Log In</Button>
-              </a>
-              </Container>
-
+            >
+              <Button variant="outline-light"><FiLogIn/></Button>
+            </a>
           )}
           {session && (
-            <Container>
-              <Navbar.Brand>My Stats</Navbar.Brand>
-              <img src={session.user.image} alt="profile" style={{ width:35, height: 35, borderRadius: 35 }} />
+            <>
+              <img src={session.user.image} alt="profile" style={{ width:35, height: 35, borderRadius: 35 }} /> 
+              <Button href="/newtable" variant="outline-light"><FiPlus/></Button>
               <a 
                 href={`/api/auth/signout`}
                 onClick={(e) => {
@@ -34,12 +33,13 @@ const Navigation = () => {
                   signout()
                 }}                
               >
-                <Button>Log Out</Button>
+                <Button variant="outline-light"><FiLogOut/></Button>
               </a>
-            </Container>
+            </>
           )}
-      </Navbar>
-    );
+      </Container>
+    </Navbar>    
+  );
 }
  
 export default Navigation

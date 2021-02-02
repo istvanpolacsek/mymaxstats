@@ -1,11 +1,15 @@
 import { Provider } from 'next-auth/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './home';
 
 const App = ({ Component, pageProps }) => {
-  const { session } = pageProps
+  const { session } = pageProps;
+
   return (
       <Provider session={session}>
-        <Component {...pageProps}/>
+        <Home>
+          <Component {...pageProps}/>
+        </Home>
       </Provider>
     )
 }

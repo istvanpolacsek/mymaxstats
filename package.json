@@ -1,6 +1,6 @@
 {
   "name": "mymaxstats",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,11 +10,26 @@
   },
   "dependencies": {
     "bootstrap": "^4.6.0",
+    "cookie-cutter": "^0.2.0",
+    "formik": "^2.2.6",
+    "isomorphic-unfetch": "^3.1.0",
+    "mongodb": "^3.6.3",
     "mongoose": "^5.11.14",
     "next": "10.0.6",
     "next-auth": "^3.1.0",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.3",
-    "react-dom": "17.0.1"
-  }
+    "react-dom": "17.0.1",
+    "react-icons": "^4.1.0",
+    "yup": "^0.32.8"
+  },
+  "peerOptionalDependencies": {
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.14"
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "Istvan Polacsek",
+  "license": "ISC"
 }
