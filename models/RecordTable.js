@@ -1,9 +1,10 @@
 import mongoose, { mongo } from 'mongoose';
+import { uom } from '../utils/uom.json';
 
 const RecordSchema = new mongoose.Schema({
     record: { type: String, required: true},
     value: { type: Number, required: true },
-    uom: { type: String, required: true, enum: ['kg', 'm', 'rep', 'sec'] },
+    uom: { type: String, required: true, enum: uom },
     primary: { type: Boolean, required: true }
 })
 

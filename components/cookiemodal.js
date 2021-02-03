@@ -36,7 +36,7 @@ const CookieModal = () => {
               This webpage uses cookie to deliver its services.
             </Modal.Body>
             <Modal.Footer>
-              <Button varian="primary" onClick={handleClose}>
+              <Button variant="success" onClick={handleClose}>
                 I Agree
               </Button>
             </Modal.Footer>

@@ -1,95 +1,91 @@
-import { useSession } from 'next-auth/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import fetch from 'isomorphic-unfetch';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
-import { FiArrowLeft, FiEdit2, FiCheck, FiTrash, FiX } from 'react-icons/fi';
+import { FiEdit2 } from 'react-icons/fi';
+import { months } from '../../utils/months.json';
+import Form from 'react-bootstrap/Form';
+import RangeSlider from 'react-bootstrap-range-slider';
+import BackArrow from '../../components/backarrow.js';
+import DeleteButton from '../../components/deletebutton.js';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
 const RecordTable = ({ recordTable }) => {
-    const [session] = useSession();
-    const [show, setShow] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+
     const router = useRouter();
     
-    const months = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
+    const pformat = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1});
+    const sformat = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2});
 
-    const handleShow = () => setShow(true);
-
-    const handleClose = () => setShow(false);
-
-    const handleDelete = () => {
-        setIsDeleting(true);
-        deleteRecordTable();
-    }
-
-    const deleteRecordTable = async () => {
-        try {
-            const deleted  = await fetch(`/api/recordtables/${router.query.id}`, {
-                method: "DELETE"
-            });
-
-            router.push("/");
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const goBack = () => {
-        router.back();
-    }
+    const [ value, setValue ] = useState(100); 
 
     return (
         <Container style={{ paddingTop: 80 }}>
             <Row className="justify-content-center">
                 <Col>
                 <ButtonToolbar className="justify-content-between">
-                    <Button variant="outline-secondary" style={{ marginBottom: 15}} onClick={goBack}><FiArrowLeft/></Button>
+                    <BackArrow/>
                     <ButtonGroup size="lg">
-                        <Button href={router.query.id + '/edit'} variant="outline-dark"><FiEdit2/></Button>
-                        <Button onClick={handleShow} variant="outline-dark"><FiTrash/></Button>                
+                        <Button href={router.query.id + '/edit'} variant="outline-dark" style={{paddingLeft: 25, paddingRight: 25}}><FiEdit2/></Button>
+                        <DeleteButton tableid={router.query.id}/>             
                     </ButtonGroup>
                 </ButtonToolbar>
-                    <Table responsive striped bordered className="text-dark" style={{ marginTop: 15 }}>
-                        <thead className="text-dark">
+                </Col>
+            </Row>
+            <Row className="justify-content-center" style={{paddingTop: 20}}>
+                <Col>
+                    <Card><Table hover responsive className="text-dark" >
+                        <thead className="text-dark bg-light ">
                             <tr>
-                                <th>{recordTable.year} {months[recordTable.month-1]}</th>
-                                <th className="text-right">100.0</th>
-                                <th className="text-center">%</th>
+                                <th className="col-7 h5">{recordTable.year} {months[recordTable.month]}</th>
+                                <th className="col-3 h5 text-right">{value}</th>
+                                <th className="col-2 h5 text-center">%</th>
                             </tr>
                         </thead>
                         <tbody>
                             {recordTable.records.map(record => (
                                 <tr key={record._id}>
-                                    <td>{record.record}</td>
-                                    <td className="text-right">{record.value}</td>
-                                    <td className="text-center">{record.uom}</td>
+                                    <td className="col-7">{record.record}</td>
+                                    <td className="col-3 text-right">
+                                        {(record.primary) ? pformat.format(Math.ceil(value*record.value/250)*2.5) : 
+                                        (record.uom == 'm:s' ? sformat.format(record.value) : record.value)}
+                                    </td>
+                                    <td className="col-2 text-center">{record.uom}</td>
                                 </tr>
                             ))}
                         </tbody>
-                    </Table>
+                    </Table></Card>
                 </Col>
             </Row>
-            <Modal centered show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header>
-                    <Modal.Title>Confirm Delete</Modal.Title>
-                </Modal.Header>
-                <Modal.Footer>
-                    <Button disabled={isDeleting} variant="danger" onClick={handleDelete}>{isDeleting ? <Spinner as="span" size="sm" animation="border"/> : <FiCheck/>}</Button>
-                    <Button disabled={isDeleting} variant="secondary" onClick={handleClose}><FiX/></Button>
-                </Modal.Footer>
-            </Modal>
-        </Container>
+            <Container className="fixed-bottom">
+                <Form>
+                    <Form.Group as={Row}>
+                        <Col>
+                            <RangeSlider
+                                size="lg"
+                                variant="secondary"
+                                tooltipPlacement="top"
+                                value = {value}
+                                step={5}
+                                min={60}
+                                max={100}
+                                onChange = {event => setValue(event.target.value)}
+                            />
+                        </Col>
+                    </Form.Group>
+                </Form>
+            </Container>
+        </Container>  
     )
 }
 
