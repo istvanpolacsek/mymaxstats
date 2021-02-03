@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { FiPlus, FiLogIn, FiLogOut } from 'react-icons/fi';
 import cookieCutter from 'cookie-cutter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Navigation = () => {
   const router = useRouter();
@@ -18,9 +18,11 @@ const Navigation = () => {
   
   const [session] = useSession();
 
+  useEffect(() => setIsDisabled(true), [session]);
+
   return (
     <Navbar fixed="top" bg="secondary" variant="dark">
-      <Container onLoad={() => {if (cookieCutter.get('session')) setIsDisabled(true)}}>
+      <Container>
         <Navbar.Brand href="/">My Stats</Navbar.Brand>    
           {!session && (
             <Button
