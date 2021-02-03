@@ -58,7 +58,7 @@ const TableForm = (props) => {
                 isValid,
                 errors,
             }) => (
-                <Form noValidate onSubmit={handleSubmit}>
+                <Form style={{paddingTop: 20}} noValidate onSubmit={handleSubmit}>
                     <h5 className="text-dark">New Table</h5>
                     <Form.Row>
                         <Form.Group as={Col} controlId="validationYear">
