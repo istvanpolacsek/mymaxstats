@@ -62,6 +62,7 @@ const Index = ({ recordTables }) => {
           </>
         )}
       </Row>
+      <Row style={{paddingTop: 60}}/>
     </Container>
   )
 }
