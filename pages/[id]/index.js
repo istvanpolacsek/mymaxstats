@@ -73,11 +73,12 @@ const RecordTable = ({ recordTable }) => {
                 <Container className="fixed-bottom">
                     <Form>
                         <Form.Group as={Row}>
-                            <Col>
+                            <Col xs={{ span: 8, offset: 2 }}>
                                 <RangeSlider
                                     size="lg"
                                     variant="secondary"
                                     tooltipPlacement="top"
+                                    tooltipLabel={currentValue => `${currentValue}%`}
                                     value = {value}
                                     step={5}
                                     min={60}
