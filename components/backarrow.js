@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { FiArrowLeft } from 'react-icons/fi';
+import Button from 'react-bootstrap/Button';
 
 const BackArrow = () => {
     
@@ -9,7 +10,7 @@ const BackArrow = () => {
     }
 
     return (
-        <a className="text-dark" href="#" onClick={goBack}><h2><FiArrowLeft/></h2></a>
+        <Button size="lg" style={{paddingLeft: 25, paddingRight: 25}} variant="outline-dark" onClick={goBack}><FiArrowLeft/></Button>
       );
 }
  
