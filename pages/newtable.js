@@ -49,8 +49,10 @@ const NewTable = () => {
 
     return (
         <Container style={{ paddingTop: 80 }}>
-            <BackArrow/>
-            <TableForm form={form} confirmfunction={createRecordTable}/>
+            {session && (<>
+                <BackArrow/>
+                <TableForm form={form} confirmfunction={createRecordTable}/>
+            </>)}
         </Container>
     )
 }

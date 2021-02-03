@@ -4,6 +4,7 @@ import CookieModal from '../components/cookiemodal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home = ({ children }) => {
+
   return (
     <>
       <Head>

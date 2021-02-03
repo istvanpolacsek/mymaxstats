@@ -8,37 +8,26 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
-import Spinner from 'react-bootstrap/Spinner';
 import { useSession } from 'next-auth/client';
 import { FiEdit2, FiEye, FiPlus } from 'react-icons/fi';
 import { months } from '../utils/months.json';
-import { useState, useEffect } from 'react';
 import DeleteButton from '../components/deletebutton.js';
+import LoadingSpinner from '../components/loadingspinner';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
 const Index = ({ recordTables }) => {
   const [session] = useSession();
 
-  const [isLoading, setIsLoading] = useState(true);
-
   const sformat = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2});
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [recordTables]);
 
   return (
     <Container style={{ paddingTop: 56 }}>
       <Row>
         {session && ( 
           <>
+          <LoadingSpinner target={recordTables} />
           <Button href="/newtable" block size="lg" variant="outline-dark" style={{ margin: 15 }}><FiPlus/></Button>
-          {isLoading && <Col xs="12" sm="12" md="12" lg="12" xl="12">
-            <Row className="justify-content-center">
-              <Spinner animation="border" variant="secondary" />
-            </Row>
-          </Col>}
           {recordTables
             .filter(recordTable => recordTable.userid == session.user.id)
             .sort((a, b) => (b.year > a.year) ? 1 : (a.year === b.year) ? ((b.month > a.month) ? 1 : -1) : -1 )

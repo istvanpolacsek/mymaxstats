@@ -8,12 +8,16 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import TableForm from '../../components/tableform.js';
 import BackArrow from '../../components/backarrow.js'
 import DeleteButton from '../../components/deletebutton.js';
+import { useSession } from 'next-auth/client';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
 const EditTable = ({ recordTable }) => {
 
     const router = useRouter();
+    const [session] = useSession();
+
+    
 
     const [form, setForm] = useState({ 
         year: recordTable.year, 
@@ -40,13 +44,15 @@ const EditTable = ({ recordTable }) => {
 
     return (
         <Container style={{ paddingTop: 80 }}>
-            <ButtonToolbar className="justify-content-between">
-                <BackArrow/>
-                <ButtonGroup size="lg">
-                    <DeleteButton tableid={router.query.id}/>             
-                </ButtonGroup>
-            </ButtonToolbar>
-            <TableForm form={form} confirmfunction={updateRecordTable}/>
+            {session && (<>
+                <ButtonToolbar className="justify-content-between">
+                    <BackArrow/>
+                    <ButtonGroup size="lg">
+                        <DeleteButton tableid={router.query.id}/>             
+                    </ButtonGroup>
+                </ButtonToolbar>
+                <TableForm form={form} confirmfunction={updateRecordTable}/>
+            </>)}
         </Container>
     )
 }

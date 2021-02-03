@@ -1,35 +1,37 @@
 import { signin, signout, useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { FiPlus, FiLogIn, FiLogOut } from 'react-icons/fi';
-import { useState, useEffect } from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import cookieCutter from 'cookie-cutter';
+import { useState } from 'react';
 
 const Navigation = () => {
+  const router = useRouter();
+
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const age = new Date();
+  age.setMonth(age.getMonth() + 1);
+  
   const [session] = useSession();
-
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
-
-  useEffect(() => {
-    setIsLoggingIn(false);
-  }, [session]);
 
   return (
     <Navbar fixed="top" bg="secondary" variant="dark">
-      <Container>
-        <Navbar.Brand href="/">My Stats</Navbar.Brand>
-        {!session && isLoggingIn && <Spinner animation="border" variant="secondary"/>}
+      <Container onLoad={() => {if (cookieCutter.get('session')) setIsDisabled(true)}}>
+        <Navbar.Brand href="/">My Stats</Navbar.Brand>    
           {!session && (
             <Button
+              disabled={isDisabled}
               as="a"
               variant="outline-light"
               href={`/api/auth/signin`}
               onClick={(e) => {
                 e.preventDefault()
+                cookieCutter.set('session', 'true', { expires: age })
                 signin()
-                setIsLoggingIn(true);
               }}     
               style={{ paddingLeft: 25, paddingRight: 25 }}           
             >
@@ -42,12 +44,14 @@ const Navigation = () => {
             <ButtonGroup>
               <Button href="/newtable" variant="outline-light" style={{paddingLeft: 25, paddingRight: 25}}><FiPlus/></Button>
               <Button 
+                disabled={!isDisabled}
                 as="a" 
                 variant="outline-light"
                 href={`/api/auth/signout`}
                 onClick={(e) => {
                   e.preventDefault()
-                  signout()
+                  cookieCutter.set('session', 'true', { expires: new Date(0) })
+                  signout().then(router.reload())
                 }}
                 style={{paddingLeft: 25, paddingRight: 25}}                
               >
