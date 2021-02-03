@@ -11,14 +11,10 @@ import { useEffect, useState } from 'react';
 const Navigation = () => {
   const router = useRouter();
 
-  const [isDisabled, setIsDisabled] = useState(false);
-
   const age = new Date();
   age.setMonth(age.getMonth() + 1);
   
   const [session] = useSession();
-
-  useEffect(() => setIsDisabled(true), [session]);
 
   return (
     <Navbar fixed="top" bg="secondary" variant="dark">
@@ -26,7 +22,6 @@ const Navigation = () => {
         <Navbar.Brand href="/">My Stats</Navbar.Brand>    
           {!session && (
             <Button
-              disabled={isDisabled}
               as="a"
               variant="outline-light"
               href={`/api/auth/signin`}
@@ -46,7 +41,6 @@ const Navigation = () => {
             <ButtonGroup>
               <Button href="/newtable" variant="outline-light" style={{paddingLeft: 25, paddingRight: 25}}><FiPlus/></Button>
               <Button 
-                disabled={!isDisabled}
                 as="a" 
                 variant="outline-light"
                 href={`/api/auth/signout`}
