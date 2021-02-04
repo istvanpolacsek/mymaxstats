@@ -9,6 +9,7 @@ import TableForm from '../../components/tableform.js';
 import BackArrow from '../../components/backarrow.js'
 import DeleteButton from '../../components/deletebutton.js';
 import { useSession } from 'next-auth/client';
+import HeadMessage from '../../components/headmessage.js';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -43,17 +44,20 @@ const EditTable = ({ recordTable }) => {
     }
 
     return (
-        <Container style={{ paddingTop: 80 }}>
-            {session && (<>
-                <ButtonToolbar className="justify-content-between">
-                    <BackArrow/>
-                    <ButtonGroup size="lg">
-                        <DeleteButton tableid={router.query.id}/>             
-                    </ButtonGroup>
-                </ButtonToolbar>
-                <TableForm form={form} confirmfunction={updateRecordTable}/>
-            </>)}
-        </Container>
+        <>
+            <HeadMessage message={'Edit Table'} />
+            <Container style={{ paddingTop: 80 }}>
+                {session && (<>
+                    <ButtonToolbar className="justify-content-between">
+                        <BackArrow/>
+                        <ButtonGroup size="lg">
+                            <DeleteButton tableid={router.query.id}/>             
+                        </ButtonGroup>
+                    </ButtonToolbar>
+                    <TableForm form={form} confirmfunction={updateRecordTable}/>
+                </>)}
+            </Container>
+        </>
     )
 }
 

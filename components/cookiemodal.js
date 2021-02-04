@@ -15,11 +15,13 @@ const CookieModal = () => {
     }
 
     useEffect(() => {
+      setTimeout(() => {
         if (cookieCutter.get('cookieConsent') === 'true') {
-            setShow(false);
-        } else {
-            setShow(true);
-        };
+          setShow(false);
+      } else {
+          setShow(true);
+      };
+      } , 1500);
     }, []);
 
     return (

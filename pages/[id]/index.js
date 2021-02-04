@@ -18,6 +18,7 @@ import Form from 'react-bootstrap/Form';
 import RangeSlider from 'react-bootstrap-range-slider';
 import BackArrow from '../../components/backarrow.js';
 import DeleteButton from '../../components/deletebutton.js';
+import HeadMessage from '../../components/headmessage';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -32,6 +33,8 @@ const RecordTable = ({ recordTable }) => {
     const [ value, setValue ] = useState(100); 
 
     return (
+        <>
+        <HeadMessage message={'View Table'} />
         <Container style={{ paddingTop: 80 }}>
             {session && (<>
                 <Row className="justify-content-center">
@@ -91,6 +94,7 @@ const RecordTable = ({ recordTable }) => {
                 </Container>
             </>)}
         </Container>  
+        </>
     )
 }
 

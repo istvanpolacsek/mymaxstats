@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import { primaries } from '../utils/primaries.json';
 import TableForm from '../components/tableform.js';
 import BackArrow from '../components/backarrow.js'
+import HeadMessage from '../components/headmessage';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -48,12 +49,15 @@ const NewTable = () => {
     }
 
     return (
-        <Container style={{ paddingTop: 80 }}>
-            {session && (<>
-                <BackArrow/>
-                <TableForm form={form} confirmfunction={createRecordTable}/>
-            </>)}
-        </Container>
+        <>
+            <HeadMessage message={'New Table'} />
+            <Container style={{ paddingTop: 80 }}>
+                {session && (<>
+                    <BackArrow/>
+                    <TableForm form={form} confirmfunction={createRecordTable}/>
+                </>)}
+            </Container>
+        </>
     )
 }
 

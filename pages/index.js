@@ -8,11 +8,12 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from'react-bootstrap/OverlayTrigger';
 import { useSession } from 'next-auth/client';
 import { FiEdit2, FiEye, FiPlus } from 'react-icons/fi';
 import { months } from '../utils/months.json';
 import DeleteButton from '../components/deletebutton.js';
-import LoadingSpinner from '../components/loadingspinner';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -21,13 +22,17 @@ const Index = ({ recordTables }) => {
 
   const sformat = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2});
 
+  const message='Dashboard'
+
   return (
+     <>
     <Container style={{ paddingTop: 56 }}>
       <Row>
         {session && ( 
           <>
-          <LoadingSpinner target={recordTables} />
-          <Button href="/newtable" block size="lg" variant="outline-dark" style={{ margin: 15 }}><FiPlus/></Button>
+          <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>New Table</Tooltip>}>
+            <Button href="/newtable" block size="lg" variant="outline-dark" style={{ margin: 15 }}><FiPlus/></Button>
+          </OverlayTrigger>
           {recordTables
             .filter(recordTable => recordTable.userid == session.user.id)
             .sort((a, b) => (b.year > a.year) ? 1 : (a.year === b.year) ? ((b.month > a.month) ? 1 : -1) : -1 )
@@ -49,8 +54,12 @@ const Index = ({ recordTables }) => {
                 <Card.Body>
                   <ButtonToolbar className="justify-content-center">
                     <ButtonGroup size="lg">
-                      <Button href={`/${recordTable._id}`} variant="outline-dark" style={{paddingLeft: 25, paddingRight: 25}}><FiEye/></Button>
+                      <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>View Table</Tooltip>}>
+                        <Button href={`/${recordTable._id}`} variant="outline-dark" style={{paddingLeft: 25, paddingRight: 25}}><FiEye/></Button>
+                      </OverlayTrigger>
+                      <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Edit Table</Tooltip>}>
                       <Button href={`/${recordTable._id}/edit`} variant="outline-dark" style={{paddingLeft: 25, paddingRight: 25}}><FiEdit2/></Button>                
+                      </OverlayTrigger>
                       <DeleteButton tableid={recordTable._id} />
                     </ButtonGroup>
                   </ButtonToolbar>
@@ -64,7 +73,9 @@ const Index = ({ recordTables }) => {
       </Row>
       <Row style={{paddingTop: 60}}/>
     </Container>
+    </>
   )
+  
 }
 
 Index.getInitialProps = async () => {

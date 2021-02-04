@@ -8,6 +8,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from'react-bootstrap/OverlayTrigger';
 import { FiCheck, FiPlus, FiX } from 'react-icons/fi';
 import { months } from '../utils/months.json';
 import { uom } from '../utils/uom.json';
@@ -85,7 +87,7 @@ const TableForm = (props) => {
                                 isInvalid={errors.month}
                             >
                                 {months.map((month, index) => (
-                                    <option value={index}>{month}</option> 
+                                    <option key={month} value={index}>{month}</option> 
                                 ))}                                    
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">{errors.month}</Form.Control.Feedback>                                
@@ -150,14 +152,18 @@ const TableForm = (props) => {
                                             </Form.Control>
                                         </Form.Group>
                                         <Form.Group as={Col} >
-                                            <Button block variant="outline-secondary" onClick={() => arrayHelpers.remove(index)} disabled={record.primary}><FiX/></Button>
+                                            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Remove Row</Tooltip>}>
+                                                <Button block variant="outline-dark" onClick={() => arrayHelpers.remove(index)} disabled={record.primary}><FiX/></Button>
+                                            </OverlayTrigger>
                                         </Form.Group>
                                     </Form.Row>
                                 ))
                             )}
                             <Form.Row className="justify-content-end">
                                 <Form.Group as={Col} md="2">
-                                    <Button block variant="outline-secondary" onClick={() => arrayHelpers.push({ record: '', value: '', uom: '', primary: false })}><FiPlus/></Button>
+                                    <OverlayTrigger placement="left" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Add Row</Tooltip>}>
+                                        <Button block variant="outline-dark" onClick={() => arrayHelpers.push({ record: '', value: '', uom: '', primary: false })}><FiPlus/></Button>
+                                    </OverlayTrigger>
                                 </Form.Group>
                             </Form.Row>
                             </>
@@ -165,10 +171,14 @@ const TableForm = (props) => {
                     />
                     <ButtonToolbar className="justify-content-center" style={{marginBottom: 50}}>
                         <ButtonGroup size="lg">
-                            <Button size="lg" variant="outline-success" type="submit" disabled={isSubmitting} style={{paddingLeft: 50, paddingRight: 50}}>
-                                {isSubmitting ? <Spinner as="span" animation="border" /> : <FiCheck/>}
-                            </Button>
-                            <Button size="lg" variant="outline-danger" onClick={goBack} style={{paddingLeft: 50, paddingRight: 50}}><FiX/></Button>
+                            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Save</Tooltip>}>
+                                <Button size="lg" variant="outline-success" type="submit" disabled={isSubmitting} style={{paddingLeft: 50, paddingRight: 50}}>
+                                    {isSubmitting ? <Spinner as="span" animation="border" /> : <FiCheck/>}
+                                </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Cancel</Tooltip>}>
+                                <Button size="lg" variant="outline-danger" onClick={goBack} style={{paddingLeft: 50, paddingRight: 50}}><FiX/></Button>
+                            </OverlayTrigger>
                         </ButtonGroup>
                     </ButtonToolbar>
                 </Form>

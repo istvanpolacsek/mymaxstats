@@ -1,27 +1,26 @@
 import { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const LoadingSpinner = (props) => {
     const target = props.target;
 
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState('visible');
 
     useEffect(() => {
-        setVisible(false);
+        setVisible('invisible');
       }, [target]);
 
     return (
-        <>
-            {visible && (
-                <Row style={{marginTop: 15}} >
-                    <Col className="d-flex justify-content-center">
-                        <Spinner animation="border" ></Spinner>
-                    </Col>
-                </Row>
-            )}
-        </>
+        <Container className={visible}>
+            <Row>
+                <Col className="d-flex justify-content-center">
+                    <Spinner variant="dark" animation="border" ></Spinner>
+                </Col>
+            </Row>
+       </Container>
     );
 }
  
