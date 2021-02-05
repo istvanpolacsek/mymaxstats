@@ -9,16 +9,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table'
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import { FiEdit2 } from 'react-icons/fi';
+import { FiEdit2, FiArrowLeft } from 'react-icons/fi';
 import { months } from '../../utils/months.json';
 import Form from 'react-bootstrap/Form';
 import RangeSlider from 'react-bootstrap-range-slider';
-import BackArrow from '../../components/backarrow.js';
 import DeleteButton from '../../components/deletebutton.js';
 import HeadMessage from '../../components/headmessage';
+import TooltipButton from '../../components/tooltipbutton';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -40,9 +39,9 @@ const RecordTable = ({ recordTable }) => {
                 <Row className="justify-content-center">
                     <Col>
                     <ButtonToolbar className="justify-content-between">
-                        <BackArrow/>
+                        <TooltipButton placement="right" tooltip="Back" icon={<FiArrowLeft/>} function={() => {router.back()}} variant={"outline-dark"}/>
                         <ButtonGroup size="lg">
-                            <Button href={router.query.id + '/edit'} variant="outline-dark" style={{paddingLeft: 25, paddingRight: 25}}><FiEdit2/></Button>
+                            <TooltipButton placement="top" tooltip="Edit" icon={<FiEdit2/>} href={router.query.id + '/edit'} variant={"outline-dark"}/>
                             <DeleteButton tableid={router.query.id}/>             
                         </ButtonGroup>
                     </ButtonToolbar>

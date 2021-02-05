@@ -3,16 +3,14 @@ import { Formik, FieldArray } from 'formik';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from'react-bootstrap/OverlayTrigger';
 import { FiCheck, FiPlus, FiX } from 'react-icons/fi';
 import { months } from '../utils/months.json';
 import { uom } from '../utils/uom.json';
+import TooltipButton from './tooltipbutton';
 
 const TableForm = (props) => {
     const form = props.form;
@@ -152,18 +150,26 @@ const TableForm = (props) => {
                                             </Form.Control>
                                         </Form.Group>
                                         <Form.Group as={Col} >
-                                            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Remove Row</Tooltip>}>
-                                                <Button block variant="outline-dark" onClick={() => arrayHelpers.remove(index)} disabled={record.primary}><FiX/></Button>
-                                            </OverlayTrigger>
+                                            <TooltipButton 
+                                                block={true} 
+                                                placement="top" 
+                                                tooltip="Remove Row" 
+                                                icon={<FiX/>} 
+                                                function={() => arrayHelpers.remove(index)} 
+                                                variant={"outline-dark"}/>
                                         </Form.Group>
                                     </Form.Row>
                                 ))
                             )}
                             <Form.Row className="justify-content-end">
                                 <Form.Group as={Col} md="2">
-                                    <OverlayTrigger placement="left" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Add Row</Tooltip>}>
-                                        <Button block variant="outline-dark" onClick={() => arrayHelpers.push({ record: '', value: '', uom: '', primary: false })}><FiPlus/></Button>
-                                    </OverlayTrigger>
+                                    <TooltipButton 
+                                        block={true} 
+                                        placement="left" 
+                                        tooltip="Add Row" 
+                                        icon={<FiPlus/>} 
+                                        function={() => arrayHelpers.push({ record: '', value: '', uom: '', primary: false })} 
+                                        variant={"outline-dark"}/>
                                 </Form.Group>
                             </Form.Row>
                             </>
@@ -171,14 +177,20 @@ const TableForm = (props) => {
                     />
                     <ButtonToolbar className="justify-content-center" style={{marginBottom: 50}}>
                         <ButtonGroup size="lg">
-                            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Save</Tooltip>}>
-                                <Button size="lg" variant="outline-success" type="submit" disabled={isSubmitting} style={{paddingLeft: 50, paddingRight: 50}}>
-                                    {isSubmitting ? <Spinner as="span" animation="border" /> : <FiCheck/>}
-                                </Button>
-                            </OverlayTrigger>
-                            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Cancel</Tooltip>}>
-                                <Button size="lg" variant="outline-danger" onClick={goBack} style={{paddingLeft: 50, paddingRight: 50}}><FiX/></Button>
-                            </OverlayTrigger>
+                            <TooltipButton 
+                                placement="top"
+                                tooltip="Save"
+                                icon={isSubmitting ? <Spinner as="span" animation="border" /> : <FiCheck/>}
+                                type="submit"
+                                variant="outline-success"
+                            />
+                            <TooltipButton 
+                                placement="top"
+                                tooltip="Cancel"
+                                icon={<FiX/>}
+                                function={() => router.back()}
+                                variant="outline-danger"
+                            />                            
                         </ButtonGroup>
                     </ButtonToolbar>
                 </Form>

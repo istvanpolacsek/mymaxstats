@@ -5,8 +5,9 @@ import fetch from 'isomorphic-unfetch';
 import Container from 'react-bootstrap/Container';
 import { primaries } from '../utils/primaries.json';
 import TableForm from '../components/tableform.js';
-import BackArrow from '../components/backarrow.js'
 import HeadMessage from '../components/headmessage';
+import TooltipButton from '../components/tooltipbutton';
+import { FiArrowLeft } from 'react-icons/fi';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -53,7 +54,7 @@ const NewTable = () => {
             <HeadMessage message={'New Table'} />
             <Container style={{ paddingTop: 80 }}>
                 {session && (<>
-                    <BackArrow/>
+                    <TooltipButton placement="right" tooltip="Back" icon={<FiArrowLeft/>} function={() => {router.back()}} variant={"outline-dark"}/>
                     <TableForm form={form} confirmfunction={createRecordTable}/>
                 </>)}
             </Container>

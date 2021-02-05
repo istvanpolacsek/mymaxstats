@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from'react-bootstrap/OverlayTrigger';
 import { FiCheck, FiTrash, FiX } from 'react-icons/fi';
+import TooltipButton from './tooltipbutton';
 
 const DeleteButton = (props) => {
     const tableid = props.tableid;
@@ -37,9 +38,7 @@ const DeleteButton = (props) => {
 
     return (
         <>
-            <OverlayTrigger placement="top" delay={{ show: 250, hide: 250 }} overlay={<Tooltip>Delete</Tooltip>}> 
-                <Button onClick={handleShow} variant="outline-dark" style={{paddingLeft: 25, paddingRight: 25}}><FiTrash/></Button>
-            </OverlayTrigger>
+            <TooltipButton placement="top" tooltip="Delete" icon={<FiTrash/>} function={handleShow} variant={"outline-dark"}/>
             <Modal centered show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header>
                     <Modal.Title>Confirm Delete</Modal.Title>

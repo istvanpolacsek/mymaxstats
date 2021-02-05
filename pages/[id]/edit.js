@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import TableForm from '../../components/tableform.js';
-import BackArrow from '../../components/backarrow.js'
 import DeleteButton from '../../components/deletebutton.js';
 import { useSession } from 'next-auth/client';
 import HeadMessage from '../../components/headmessage.js';
+import TooltipButton from '../../components/tooltipbutton';
+import { FiArrowLeft } from 'react-icons/fi';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
@@ -49,7 +49,7 @@ const EditTable = ({ recordTable }) => {
             <Container style={{ paddingTop: 80 }}>
                 {session && (<>
                     <ButtonToolbar className="justify-content-between">
-                        <BackArrow/>
+                        <TooltipButton placement="right" tooltip="Back" icon={<FiArrowLeft/>} function={() => {router.back()}} variant={"outline-dark"}/>
                         <ButtonGroup size="lg">
                             <DeleteButton tableid={router.query.id}/>             
                         </ButtonGroup>
