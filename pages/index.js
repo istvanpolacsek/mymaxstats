@@ -26,7 +26,6 @@ const Index = ({ recordTables, cookies }) => {
 
   return (
     <>
-      <CookieModal consent={cookies.cookieConsent ? true : false}/>
       <Container style={{ paddingTop: 70 }}>
         <Row>
           {session && ( 
