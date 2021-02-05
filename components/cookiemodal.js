@@ -5,18 +5,15 @@ import Button from 'react-bootstrap/Button';
 
 const CookieModal = (props) => {
     
-    const [enable, setEndable] = useState(false);
-    const [show, setShow] = useState(!props.consent);
+    const [show, setShow] = useState(false);
+    
     const [cookie, setCookie] = useCookies(['cookieConsent']);
-
-    const age = new Date();
-    age.setFullYear(age.getFullYear() + 3);
 
     const handleClose = () => {
         setShow(false);
         setCookie('cookieConsent', 'true', {
           path: '/',
-          maxAge: age,
+          maxAge: 3*365*24*60*60,
           secure: true,
           sameSite: 'strict'
         })
@@ -41,12 +38,12 @@ const CookieModal = (props) => {
     )}
 
     useEffect(() => {
-      setEndable(true);
-    }, [props]);
+      props.consent ? setShow(false) : setShow(true);
+    }, []);
 
     return (
         <div onClick={e => e.stopPropagation()}>
-          {enable && renderModal()}
+          {show && renderModal()}
         </div>
       );
 }

@@ -9,9 +9,6 @@ import TooltipButton from './tooltipbutton';
 const Navigation = () => {
   const router = useRouter();
 
-  const age = new Date();
-  age.setMonth(age.getMonth() + 1);
-  
   const [session] = useSession();
 
   return (
