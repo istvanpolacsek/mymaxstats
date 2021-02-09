@@ -10,11 +10,8 @@ const Home = ({ children }) => {
   return (
     <>
       <HeadMessage message={'Home'}/>
-      
       <Navigation />
       { children }
-      <LoadingSpinner target={children}/>
-
     </>
   )
 }

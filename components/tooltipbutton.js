@@ -1,42 +1,47 @@
 import Button from 'react-bootstrap/Button';
-import Overlay from 'react-bootstrap/Overlay';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const TooltipButton = (props) => {
+    const [touch, setTouch] = useState(false);
     
-    const [show, setShow] = useState(false);
-    const [target, setTarget] = useState(null);
-
-    const ref = useRef(null);
-
-    const handleShow = (event) => {
-        setTarget(event.target);
-        setShow(true);
-    }
-
-    const handleHide = () => {
-        setShow(false);
-    }
+    useEffect(() => {
+        if (window.navigator.maxTouchPoints > 0) setTouch(true);
+    })
 
     return (
         <>
-            <Overlay  placement={props.placement} target={target} show={show} container={ref.current}>
-                <Tooltip>{props.tooltip}</Tooltip>
-            </Overlay>
-            <Button 
-                onMouseEnter={handleShow} 
-                onMouseLeave={handleHide} 
-                size={props.size}
-                style={{paddingLeft: 25, paddingRight: 25}}
-                variant={props.variant}
-                onClick={props.function}
-                block={props.block}
-                type={props.type}
-                href={props.href}
-            >
-                {props.icon}
-            </Button>
+            {touch &&
+                <Button
+                    onClick={props.function}
+                    href={props.href}
+                    type={props.type}
+                    style={{paddingLeft: 25, paddingRight: 25}}
+                    size={props.size}
+                    variant={props.variant}
+                    block={props.block}
+                >
+                    {props.icon}
+                </Button>
+            }
+            {!touch &&
+                <OverlayTrigger 
+                placement={props.placement}
+                overlay={<Tooltip>{props.tooltip}</Tooltip>}>
+                    <Button
+                        onClick={props.function}
+                        href={props.href}
+                        type={props.type}
+                        style={{paddingLeft: 25, paddingRight: 25}}
+                        size={props.size}
+                        variant={props.variant}
+                        block={props.block}
+                    >
+                        {props.icon}
+                    </Button>
+            </OverlayTrigger>
+            }
         </>
     );
 }

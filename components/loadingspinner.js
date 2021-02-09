@@ -4,17 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const LoadingSpinner = (props) => {
-    const target = props.target;
-
-    const [visible, setVisible] = useState('visible');
-
-    useEffect(() => {
-        setVisible('invisible');
-      }, [target]);
-
+const LoadingSpinner = () => {
     return (
-        <Container className={visible}>
+        <Container style={{ paddingTop: 10, paddingBottom: 10 }}>
             <Row>
                 <Col className="d-flex justify-content-center">
                     <Spinner variant="dark" animation="border" ></Spinner>
