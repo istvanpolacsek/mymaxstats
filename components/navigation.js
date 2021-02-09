@@ -1,21 +1,19 @@
 import { signin, signout, useSession } from 'next-auth/client';
-import { useRouter } from 'next/router';
-import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Spinner from 'react-bootstrap/Spinner';
 import { FiPlus, FiLogIn, FiLogOut } from 'react-icons/fi';
 import TooltipButton from './tooltipbutton';
 
 const Navigation = () => {
-  const router = useRouter();
-
-  const [session] = useSession();
+  const [session, loading] = useSession();
 
   return (
     <Navbar fixed="top" bg="secondary" variant="dark">
       <Container>
         <Navbar.Brand href="/">My Stats</Navbar.Brand>    
-          {!session && (
+          {!loading && !session && (
             <TooltipButton 
               placement="bottom"
               tooltip="Sign In"
@@ -28,6 +26,9 @@ const Navigation = () => {
                 }
               }
             />
+          )}
+          {loading && (
+            <Spinner animation="border" size="sm" variant="light"/>
           )}
           {session && (
             <>
@@ -48,7 +49,7 @@ const Navigation = () => {
                 function={
                   (e) => {
                     e.preventDefault()
-                    signout().then(router.reload())
+                    signout({ callbackUrl: '/' })
                   }
                 }
               />

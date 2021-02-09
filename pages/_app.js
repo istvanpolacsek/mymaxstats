@@ -4,18 +4,14 @@ import Home from './home';
 import { CookiesProvider } from 'react-cookie';
 
 const App = ({ Component, pageProps }) => {
-  const { session } = pageProps;
-
   return (
     <CookiesProvider>
-      <Provider session={session}>
-        
+      <Provider session={pageProps.session}>
           <Home>
             <Component {...pageProps}/>
           </Home>
-        
       </Provider>
-      </CookiesProvider>
+    </CookiesProvider>
     )
 }
  
