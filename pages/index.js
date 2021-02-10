@@ -9,17 +9,24 @@ import TooltipButton from '../components/tooltipbutton';
 import ThumbnailCard from '../components/thumbnailcard';
 import LoadingSpinner from '../components/loadingspinner';
 import { useState, useEffect } from 'react'
+import CookieModal from '../components/cookiemodal';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
 const Index = ({ data, cookies }) => {
   const [session, loading] = useSession();
-
+  const [showModal, setShowModal] = useState(false);
   const [height, setHeight] = useState(100);
 
   useEffect(() => {
     setHeight(window.innerHeight);
   })
+
+  useEffect(() => {
+    if (!cookies.cookieconsent) {
+      setShowModal(true);
+    } 
+  }, [cookies])
 
   const recordTables = session 
     ? data.
@@ -29,6 +36,7 @@ const Index = ({ data, cookies }) => {
 
   return (
     <>
+      <CookieModal show={showModal}></CookieModal>
       {!loading && !session && (
         <Container style={{height: height}} className="text-light bg-secondary" fluid>
           <Row style={{height: '100%'}} className="align-items-center">  

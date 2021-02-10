@@ -1,51 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
+import ModalHeader from 'react-bootstrap/ModalHeader';
+import ModalBody from 'react-bootstrap/ModalBody';
+import ModalFooter from 'react-bootstrap/ModalFooter';
+import ModalTitle from 'react-bootstrap/ModalTitle';
 import Button from 'react-bootstrap/Button';
+import { FiCheck } from 'react-icons/fi';
 
 const CookieModal = (props) => {
-    
-    const [show, setShow] = useState(false);
-    
-    const [cookie, setCookie] = useCookies(['cookieConsent']);
+  const [cookies, setCookie] = useCookies(['cookieconsent']);
+  const [show, setShow] = useState(false);
 
-    const handleClose = () => {
-        setShow(false);
-        setCookie('cookieConsent', 'true', {
-          path: '/',
-          maxAge: 3*365*24*60*60,
-          secure: true,
-          sameSite: 'strict'
-        })
-    }
+  const handleClose = () => {
+    setCookie('cookieconsent', 'true', {path: '/', maxAge: 3*365*24*60*60, sameSite: 'strict', secure: true});
+    setShow(false);
+  }
+  const handleShow = () => setShow(true);
 
-    const renderModal = () => { return(
-      <Modal
-        show={show}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header>
-          <Modal.Title>Cookie Consent</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          This webpage uses cookie to deliver its services.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" onClick={handleClose}>I Agree</Button>
-        </Modal.Footer>
-      </Modal>
-    )}
+  useEffect(() => {
+    if (props.show) handleShow();
+  }, [props])
 
-    useEffect(() => {
-      props.consent ? setShow(false) : setShow(true);
-    }, []);
-
-    return (
-        <div onClick={e => e.stopPropagation()}>
-          {show && renderModal()}
-        </div>
-      );
+  return (
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <ModalHeader>
+        <ModalTitle>Cookie Consent</ModalTitle>
+      </ModalHeader>
+      <ModalBody>
+        <p>This website uses cookies to delivers its services</p>
+      </ModalBody>
+      <ModalFooter>
+          <Button variant="outline-success" onClick={handleClose}><FiCheck/></Button>
+      </ModalFooter>
+    </Modal>
+   );
 }
 
 export default CookieModal
