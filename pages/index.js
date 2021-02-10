@@ -29,7 +29,7 @@ const Index = ({ data, cookies }) => {
 
   return (
     <>
-      {!session && (
+      {!loading && !session && (
         <Container style={{height: height}} className="text-light bg-secondary" fluid>
           <Row style={{height: '100%'}} className="align-items-center">  
           <Col xs="12" sm="12" md="6" lg="6" xl="6" className="d-flex justify-content-center align-self-end justify-content-md-end align-self-md-center">
@@ -41,7 +41,7 @@ const Index = ({ data, cookies }) => {
           </Row>
         </Container>
       )}
-      {loading && session && (
+      {loading && (
         <Container style={{ paddingTop: 70 }}>
           <LoadingSpinner/>
         </Container>
