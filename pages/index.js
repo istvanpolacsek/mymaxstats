@@ -2,18 +2,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useSession } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/client';
 import { FiPlus } from 'react-icons/fi';
 import cookie from 'cookie';
 import TooltipButton from '../components/tooltipbutton';
 import ThumbnailCard from '../components/thumbnailcard';
 import LoadingSpinner from '../components/loadingspinner';
+import { useState, useEffect } from 'react'
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
 const Index = ({ data, cookies }) => {
   const [session, loading] = useSession();
-  
+
+  const [height, setHeight] = useState(100);
+
+  useEffect(() => {
+    setHeight(window.innerHeight);
+  })
+
   const recordTables = session 
     ? data.
       filter(recordTable => recordTable.userid == session.user.id).
@@ -22,11 +29,26 @@ const Index = ({ data, cookies }) => {
 
   return (
     <>
-      <Container style={{ paddingTop: 70 }}>
-        {loading && (<LoadingSpinner/>)}
-        <Row>
-          {session && ( 
-            <>
+      {!session && (
+        <Container style={{height: height}} className="text-light bg-secondary" fluid>
+          <Row style={{height: '100%'}} className="align-items-center">  
+          <Col xs="12" sm="12" md="6" lg="6" xl="6" className="d-flex justify-content-center align-self-end justify-content-md-end align-self-md-center">
+            <h4>Sign In Using:</h4>
+          </Col>
+          <Col xs="12" sm="12" md="6" lg="6" xl="6" className="d-flex justify-content-center align-self-start justify-content-md-start align-self-md-center">
+            <TooltipButton size="lg" placement="top" tooltip="Sign In Using Google" icon="Google" variant={"outline-light"} function={() => signIn('google')}/>
+          </Col>
+          </Row>
+        </Container>
+      )}
+      {loading && session && (
+        <Container style={{ paddingTop: 70 }}>
+          <LoadingSpinner/>
+        </Container>
+      )}
+      {session && ( 
+            <Container style={{ paddingTop: 70, paddingBottom: 50 }}>
+            <Row>
             <Container>
               <TooltipButton placement="top" tooltip="New Table" icon={<FiPlus/>} href={"/newtable"} block={true} variant={"outline-dark"}/>
             </Container>
@@ -37,14 +59,11 @@ const Index = ({ data, cookies }) => {
                 </Col>
               )
             })}
-            </>
-          )}
-        </Row>
-        <Row style={{paddingTop: 60}}/>
-      </Container>
+            </Row>
+            </Container>
+      )}
     </>
   )
-  
 }
 
 Index.getInitialProps = async ({req}) => {

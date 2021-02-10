@@ -10,7 +10,7 @@ const Navigation = () => {
   const [session, loading] = useSession();
 
   return (
-    <Navbar fixed="top" bg="secondary" variant="dark">
+    <Navbar fixed="top" variant="dark" bg="secondary">
       <Container>
         <Navbar.Brand href="/">My Stats</Navbar.Brand>    
           {!loading && !session && (
