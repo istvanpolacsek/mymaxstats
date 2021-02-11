@@ -78,11 +78,11 @@ const Index = ({ data, consent }) => {
 
 Index.getInitialProps = async ({req}) => {
   const cookies = cookie.parse(req ? req.headers.cookie || "" : document.cookie);
-  const consent = cokkies.cookieconsent ? true : false;
+  const consent = cookies.cookieconsent ? true : false;
   const res = await fetch(`${appurl}/api/recordtables`);
   const { data } = await res.json();
 
-  return { data: data, cookies: cookies && cookies };
+  return { data: data, consent: consent };
 }
 
 export default Index
