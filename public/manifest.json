@@ -5,7 +5,7 @@
     "description": "UST Stats Tracker",
     "start_url": "/",
     "background_color": "#6c757d",
-    "theme_color": "#ffffff",
+    "theme_color": "#6c757d",
     "dir": "ltr",
     "display": "standalone",
     "orientation": "portrait",
