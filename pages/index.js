@@ -10,10 +10,11 @@ import ThumbnailCard from '../components/thumbnailcard';
 import LoadingSpinner from '../components/loadingspinner';
 import { useState, useEffect } from 'react'
 import CookieModal from '../components/cookiemodal';
+import HeadMessage from '../components/headmessage';
 
 const appurl = process.env.NEXT_PUBLIC_URL;
 
-const Index = ({ data, cookies }) => {
+const Index = ({ data, consent }) => {
   const [session, loading] = useSession();
   const [showModal, setShowModal] = useState(false);
   const [height, setHeight] = useState(100);
@@ -23,10 +24,10 @@ const Index = ({ data, cookies }) => {
   })
 
   useEffect(() => {
-    if (!cookies.cookieconsent) {
+    if (!consent) {
       setShowModal(true);
     } 
-  }, [cookies])
+  }, [consent])
 
   const recordTables = session 
     ? data.
@@ -36,6 +37,7 @@ const Index = ({ data, cookies }) => {
 
   return (
     <>
+      <HeadMessage message={'Home'} />
       <CookieModal show={showModal}></CookieModal>
       {!loading && !session && (
         <Container style={{height: height}} className="text-light bg-secondary" fluid>
@@ -76,7 +78,7 @@ const Index = ({ data, cookies }) => {
 
 Index.getInitialProps = async ({req}) => {
   const cookies = cookie.parse(req ? req.headers.cookie || "" : document.cookie);
-
+  const consent = cokkies.cookieconsent ? true : false;
   const res = await fetch(`${appurl}/api/recordtables`);
   const { data } = await res.json();
 

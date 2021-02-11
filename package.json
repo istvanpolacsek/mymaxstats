@@ -1,6 +1,6 @@
 {
   "name": "mymaxstats",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,12 +17,14 @@
     "mongoose": "^5.11.14",
     "next": "10.0.6",
     "next-auth": "^3.1.0",
+    "next-pwa": "^5.0.5",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-bootstrap-range-slider": "^2.0.2",
     "react-cookie": "^4.0.3",
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0",
+    "webpack": "^4.4.0",
     "yup": "^0.32.8"
   },
   "peerOptionalDependencies": {

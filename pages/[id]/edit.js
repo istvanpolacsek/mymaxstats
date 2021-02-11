@@ -18,8 +18,6 @@ const EditTable = ({ recordTable }) => {
     const router = useRouter();
     const [session] = useSession();
 
-    
-
     const [form, setForm] = useState({ 
         year: recordTable.year, 
         month: recordTable.month,

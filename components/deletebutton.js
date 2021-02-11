@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from'react-bootstrap/OverlayTrigger';
 import { FiCheck, FiTrash, FiX } from 'react-icons/fi';
 import TooltipButton from './tooltipbutton';
 
