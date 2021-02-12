@@ -16,10 +16,8 @@ const appurl = process.env.NEXT_PUBLIC_URL;
 const Index = ({ data, consent }) => {
   const [session, loading] = useSession();
   const [showModal, setShowModal] = useState(false);
-  const [height, setHeight] = useState(100);
-
+  
   useEffect(() => {
-    setHeight(window.innerHeight);
     if (!localStorage.getItem('cookieconsent')) setShowModal(true);
   })
 
@@ -34,7 +32,7 @@ const Index = ({ data, consent }) => {
       <HeadMessage message={'Home'} />
       <CookieModal show={showModal}></CookieModal>
       {!loading && !session && (
-        <Container style={{height: height}} className="text-light bg-secondary" fluid>
+        <Container style={{height: '100vh'}} className="text-light bg-secondary" fluid>
           <Row style={{height: '100%'}} className="align-items-center">  
           <Col xs="12" sm="12" md="6" lg="6" xl="6" className="d-flex justify-content-center align-self-end justify-content-md-end align-self-md-center">
             <h4>Sign In Using:</h4>
