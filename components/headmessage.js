@@ -28,6 +28,12 @@ const HeadMessage = (props) => {
             <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="apple-icon-144x144.png" />
             <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="apple-icon-152x152.png" />
             <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-icon-180x180.png" />
+            <link href="apple-splash-iphone5.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+            <link href="apple-splash-iphone6.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+            <link href="apple-splash-iphoneplus.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+            <link href="apple-splash-iphonex.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+            <link href="apple-splash-iphonexr.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+            <link href="apple-splash-iphonexsmax.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />            
             <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
             <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
             <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />

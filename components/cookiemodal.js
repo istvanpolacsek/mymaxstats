@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import ModalBody from 'react-bootstrap/ModalBody';
@@ -9,11 +8,10 @@ import Button from 'react-bootstrap/Button';
 import { FiCheck } from 'react-icons/fi';
 
 const CookieModal = (props) => {
-  const [cookies, setCookie] = useCookies(['cookieconsent']);
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
-    setCookie('cookieconsent', 'true', {path: '/', maxAge: 3*365*24*60*60, sameSite: 'strict', secure: true});
+    localStorage.setItem('cookieconsent', 'true');
     setShow(false);
   }
   const handleShow = () => setShow(true);

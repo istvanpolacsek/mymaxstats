@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { signIn, useSession } from 'next-auth/client';
 import { FiPlus } from 'react-icons/fi';
-import cookie from 'cookie';
 import TooltipButton from '../components/tooltipbutton';
 import ThumbnailCard from '../components/thumbnailcard';
 import LoadingSpinner from '../components/loadingspinner';
@@ -21,13 +20,8 @@ const Index = ({ data, consent }) => {
 
   useEffect(() => {
     setHeight(window.innerHeight);
+    if (!localStorage.getItem('cookieconsent')) setShowModal(true);
   })
-
-  useEffect(() => {
-    if (!consent) {
-      setShowModal(true);
-    } 
-  }, [consent])
 
   const recordTables = session 
     ? data.
@@ -77,12 +71,10 @@ const Index = ({ data, consent }) => {
 }
 
 Index.getInitialProps = async ({req}) => {
-  const cookies = cookie.parse(req ? req.headers.cookie || "" : document.cookie);
-  const consent = cookies.cookieconsent ? true : false;
   const res = await fetch(`${appurl}/api/recordtables`);
   const { data } = await res.json();
 
-  return { data: data, consent: consent };
+  return { data: data };
 }
 
 export default Index
