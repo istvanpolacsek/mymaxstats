@@ -13,7 +13,7 @@ Tools and Technologies used:
 - Next-pwa to manage mobile device home screen access
 
 The deployed application is accessible on:
-[https://mymaxstats.herokuapp.com](mymaxstats.herokuapp.com)
+[mymaxstats.herokuapp.com](https://mymaxstats.herokuapp.com)
 
 ```bash
 (c) Istvan Polacsek
