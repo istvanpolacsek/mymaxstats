@@ -42,3 +42,4 @@ yarn-error.log*
 # misc
 /pages/api/dbtest.js
 /public/*.pdn
+/.vscode/

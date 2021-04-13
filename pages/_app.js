@@ -1,5 +1,4 @@
 import { Provider } from 'next-auth/client';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './home';
 
 const App = ({ Component, pageProps }) => {

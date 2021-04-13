@@ -12,9 +12,6 @@ Tools and Technologies used:
 - MongoDB / Mongoose to manage user and persistent data
 - Next-pwa to manage mobile device home screen access
 
-The deployed application is accessible on:
-[mymaxstats.herokuapp.com](https://mymaxstats.herokuapp.com)
-
 ```bash
 (c) Istvan Polacsek
 ```
